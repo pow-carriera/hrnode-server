@@ -1,0 +1,5 @@
+model Users {
+  id       String @unique @default(uuid())
+  username String @unique
+  password String
+}
