@@ -9,8 +9,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+
+model User {
   id       String @unique @default(uuid())
   username String @unique
   password String
+
+  profile Profile?
+}
+
+model Profile {
+  id     String @unique
+  userId String @unique
+
+  lastName   String
+  firstName  String
+  middleName String?
+  suffix     String?
+
+  gender    String?
+  birthDate String?
+
+  contactNumber String?
+  contactEmail  String?
+
+  employmentType employmentType
+  department     department
+  jobCode        String
+  hireDate       DateTime
+  supervisor     String
+  payrollRunType String
+
+  user User @relation(fields: [userId], references: [id])
+  
+}
+
+enum employmentType {
+  FULLTIME
+  PARTTIME
+  INTERN
+}
+
+enum department {
+  MOBILEDEV
+  WEBDEV
+  MARKETING
 }
