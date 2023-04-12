@@ -9,7 +9,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
   id       String @unique @default(uuid())
   username String @unique

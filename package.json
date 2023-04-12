@@ -8,6 +8,9 @@
     "dev": "nodemon src/index.ts",
     "prisma-merge": "prisma-merge"
   },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

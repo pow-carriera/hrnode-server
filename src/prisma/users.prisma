@@ -1,5 +1,15 @@
-model Users {
-  id       String @unique @default(uuid())
-  username String @unique
-  password String
+model User {
+  id        String  @unique @default(uuid())
+  username  String  @unique
+  password  String
+
+  profile Profile?
+}
+
+model Profile {
+  id        String  @unique
+  userId   String @unique
+  last_name String
+  
+  user User @relation(fields: [userId], references: [id])
 }
