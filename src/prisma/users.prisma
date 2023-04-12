@@ -7,7 +7,7 @@ model User {
 }
 
 model Profile {
-  id     String @unique
+  id     String @unique @default(uuid())
   userId String @unique
 
   lastName   String
@@ -23,12 +23,11 @@ model Profile {
 
   employmentType employmentType
   department     department
-  jobCode        String
   hireDate       DateTime
   supervisor     String
-  payrollRunType String
 
   user User @relation(fields: [userId], references: [id])
+  
 }
 
 enum employmentType {
@@ -38,7 +37,11 @@ enum employmentType {
 }
 
 enum department {
+  ADMINFINANCE
+  PRODUCTION
+  MARKETING
+  SOCIALMEDIA
+  DEVOPS
   MOBILEDEV
   WEBDEV
-  MARKETING
 }

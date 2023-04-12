@@ -1,6 +1,10 @@
 import { User, Profile } from '@prisma/client'
 
-export type userData = {
-  user: User,
-  profile: Profile
+export type userCreator = {
+  user: Omit<User, "id">,
+  profile: Omit<Profile, "userId">
 };
+
+export type userUpdater = {
+  user: Omit<User, "username" | "password">
+}
