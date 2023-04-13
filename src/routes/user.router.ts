@@ -73,3 +73,23 @@ userRouter.put("/:id", async (req: Request, res: Response) => {
     });
   }
 });
+
+userRouter.delete("/:id", async (req: Request, res: Response) => {
+  req.accepts("application/json");
+  try {
+    const user = await userService.deleteUser(req.params.id);
+
+    res.status(200).json({
+      data: {
+        id: user!.id,
+      },
+      status: 200,
+      message: "OK. User successfully deleted.",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: `Bad request. ${error}`,
+    });
+  }
+});

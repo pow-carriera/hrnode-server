@@ -58,3 +58,11 @@ export const updateUser = async (
     },
   });
 };
+
+export const deleteUser = async (id: string): Promise<User | null> => {
+  return db.user.delete({
+    where: {
+      id,
+    },
+  });
+};
