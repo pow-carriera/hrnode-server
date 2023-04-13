@@ -1,4 +1,4 @@
-# HRNode-server
+## HRNode-server
 
 Environment variables declared in this file are automatically made available to Prisma.
 See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
@@ -8,7 +8,7 @@ See the documentation for all the connection string options: https://pris.ly/d/c
 
 Set up PostgreSQL connection string with the .env file, which can be seen in .env.example, along with the secret key and the host name.
 
-## Initiate the server with database migrations and client generation for Prisma.
+### Initiate the server with database migrations and client generation for Prisma.
 
 - npm install
 
@@ -16,7 +16,7 @@ Set up PostgreSQL connection string with the .env file, which can be seen in .en
 
 - npx prisma migrate dev --name "initialize"
 
-## Run server development mode.
+### Run server development mode.
 
 - npm run dev
 
@@ -28,6 +28,6 @@ Set up PostgreSQL connection string with the .env file, which can be seen in .en
 
 - npx prisma studio
 
-# Run Prettier and ESLint, format code and lint after.
+### Run Prettier and ESLint, format code and lint after.
 
 - npm run lint
