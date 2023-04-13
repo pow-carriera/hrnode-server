@@ -10,12 +10,23 @@ datasource db {
 }
 
 
+model TimeRecord {
+  id String @unique @default(uuid())
+  recordDate DateTime @default(now())
+
+  timeIn DateTime @default(now())
+  timeOut DateTime
+}
+
 model User {
   id       String @unique @default(uuid())
   username String @unique
   password String
 
   profile Profile?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Profile {

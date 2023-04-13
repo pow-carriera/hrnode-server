@@ -3,10 +3,12 @@ import { PORT, APPNAME, HOST } from "./utils/config";
 import * as routes from "./routes/routes";
 import morgan from "morgan";
 import path from "path";
+import cors from "cors";
 
 const app = express();
 const apiRouter = express.Router();
 
+app.use(cors());
 app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
