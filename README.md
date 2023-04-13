@@ -14,3 +14,7 @@ npx prisma migrate dev --name "initialize"
 
 npm run dev
 
+# Run Prettier
+
+npm run lint
+
