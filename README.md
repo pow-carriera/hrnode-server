@@ -1,4 +1,5 @@
 ## HRNode-server
+___
 
 Environment variables declared in this file are automatically made available to Prisma.
 See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
@@ -7,6 +8,8 @@ Prisma supports the native connection string format for PostgreSQL, MySQL, SQLit
 See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 Set up PostgreSQL connection string with the .env file, which can be seen in .env.example, along with the secret key and the host name.
+
+___
 
 ### Initialize the server with dependency installation, client generation, and database migration for Prisma.
 - npm install
