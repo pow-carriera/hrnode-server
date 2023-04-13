@@ -1,27 +1,36 @@
-# hrnode-server
+## HRNode-server
 
-Set up PostgreSQL connection string with the .env file,
+___
 
-## Initiate the server with
+Environment variables declared in this file are automatically made available to Prisma.
+See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
 
-npm install
+Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
-npx prisma generate
+Set up PostgreSQL connection string with the .env file, which can be seen in .env.example, along with the secret key and the host name.
 
-npx prisma migrate dev --name "initialize"
+___
 
-## Run server dev mode
+### Initialize the server with dependency installation, client generation, and database migration for Prisma.
+- npm install
 
-npm run dev
+- npx prisma generate
 
-### Migrate the database
+- npx prisma migrate dev --name "initialize"
 
-npx prisma migrate dev --name "name"
+### Run server development mode.
 
-### Open Prisma Studio
+- npm run dev
 
-npx prisma studio
+### Migrate the database after changes to the schema.
 
-# Run Prettier
+- npx prisma migrate dev --name "name"
 
-npm run lint
+### Open Prisma Studio to check for records.
+
+- npx prisma studio
+
+### Run Prettier and ESLint, format code and lint after.
+
+- npm run lint
