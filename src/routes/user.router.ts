@@ -12,9 +12,9 @@ userRouter.get("/", async (req: Request, res: Response) => {
     sort: req.query.sort?.toString(),
     sortBy: req.query.sortBy?.toString(),
   };
+
   try {
     const users = await userService.getUsers(query);
-    console.log(query);
     res.status(200).send(users);
   } catch (error) {
     res.status(400).json({

@@ -5,7 +5,7 @@ import { userCreate, userSelect, userSelectParam } from "../utils/localtypes";
 
 export const getUsers = async (
   query: userSelectParam
-): Promise<User[] | null> => {
+): Promise<Omit<User[] | null, "password">> => {
   if (query.sortBy === undefined) {
     query.sortBy = "lastName";
   }
@@ -14,12 +14,16 @@ export const getUsers = async (
       [query.sortBy]: query.sort,
     },
   };
-  return db.user.findMany({
-    orderBy: sortObj,
-    include: {
+
+  const users = db.user.findMany({
+    select: {
+      id: true,
+      username: true,
       profile: query.profile,
     },
+    orderBy: sortObj,
   });
+  return users;
 };
 
 export const createUser = async (input: userCreate): Promise<User> => {
