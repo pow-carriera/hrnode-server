@@ -1,7 +1,12 @@
 import { db } from "../utils/database";
-
+import { auth } from "../middlewares/middlewares";
 import { User } from "@prisma/client";
-import { userCreate, userSelect, userSelectParam } from "../utils/localtypes";
+import {
+  userCreate,
+  userSelect,
+  userSelectParam,
+  UserJwt,
+} from "../utils/localtypes";
 
 export const getUsers = async (
   query: userSelectParam
@@ -27,7 +32,7 @@ export const getUsers = async (
 };
 
 export const createUser = async (input: userCreate): Promise<User> => {
-  return db.user.create({
+  let user = db.user.create({
     data: {
       ...input.user,
       profile: {
@@ -35,6 +40,7 @@ export const createUser = async (input: userCreate): Promise<User> => {
       },
     },
   });
+  return user;
 };
 export const updateUser = async (input: userSelect): Promise<User | null> => {
   return db.user.delete({

@@ -3,8 +3,6 @@ import { PORT, APPNAME, HOST } from "./utils/config";
 import * as routes from "./routes/routes";
 import morgan from "morgan";
 import path from "path";
-import jwt from "jsonwebtoken";
-import { auth } from "./middlewares/middlewares";
 
 const app = express();
 const apiRouter = express.Router();
