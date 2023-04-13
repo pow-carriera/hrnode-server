@@ -8,8 +8,7 @@ See the documentation for all the connection string options: https://pris.ly/d/c
 
 Set up PostgreSQL connection string with the .env file, which can be seen in .env.example, along with the secret key and the host name.
 
-### Initiate the server with database migrations and client generation for Prisma.
-
+### Initialize the server with dependency installation, client generation, and database migration for Prisma.
 - npm install
 
 - npx prisma generate
