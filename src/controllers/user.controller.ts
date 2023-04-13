@@ -1,6 +1,5 @@
 import { db } from "../utils/database";
-import { auth } from "../middlewares/middlewares";
-import { User } from "@prisma/client";
+import { User, Profile } from "@prisma/client";
 import {
   userCreate,
   userSelect,
@@ -40,12 +39,22 @@ export const createUser = async (input: userCreate): Promise<User> => {
       },
     },
   });
+
   return user;
 };
-export const updateUser = async (input: userSelect): Promise<User | null> => {
-  return db.user.delete({
+export const updateUser = async (
+  id: string,
+  data: userCreate
+): Promise<User | null> => {
+  return db.user.update({
     where: {
-      ...input.user,
+      id,
+    },
+    data: {
+      ...data.user,
+      profile: {
+        update: data.profile,
+      },
     },
   });
 };

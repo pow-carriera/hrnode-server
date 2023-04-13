@@ -1,8 +1,11 @@
 import express from "express";
 import { Request, Response } from "express";
-import * as userService from "../controllers/user.controller";
-import { userCreate, userSelectParam } from "../utils/localtypes";
 
+import * as userService from "../controllers/user.controller";
+import { auth } from "../middlewares/middlewares";
+import type { userCreate, userSelectParam } from "../utils/localtypes";
+
+// API Level Routes
 export const userRouter = express.Router();
 
 userRouter.get("/", async (req: Request, res: Response) => {
@@ -24,17 +27,44 @@ userRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-userRouter.post("/", async (req: Request, res: Response) => {
+userRouter.post(
+  "/",
+  auth.authenticateToken,
+  async (req: Request, res: Response) => {
+    req.accepts("application/json");
+    try {
+      const input: userCreate = req.body;
+      const user = await userService.createUser(input);
+
+      const token = auth.generateAccessToken(user.id);
+
+      res.status(200).json({
+        data: {
+          id: user.id,
+          jwt: token,
+        },
+        status: 201,
+        message: `Created. User successfully created.`,
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: 400,
+        message: `Bad request. ${error}`,
+      });
+    }
+  }
+);
+
+userRouter.put("/:id", async (req: Request, res: Response) => {
   req.accepts("application/json");
   try {
-    const input: userCreate = req.body;
-    const user = await userService.createUser(input);
+    const user = await userService.updateUser(req.params.id, req.body);
     res.status(200).json({
       data: {
-        id: user.id,
+        id: user!.id,
       },
       status: 200,
-      message: `OK.`,
+      message: "OK. User successfully updated.",
     });
   } catch (error) {
     res.status(400).json({

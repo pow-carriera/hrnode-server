@@ -2,6 +2,7 @@ model User {
   id       String @unique @default(uuid())
   username String @unique
   password String
+  role     Role
 
   profile Profile?
 
@@ -30,7 +31,12 @@ model Profile {
   supervisor     String?
 
   user User @relation(fields: [userId], references: [id])
-  
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+  INTERN
 }
 
 enum employmentType {
