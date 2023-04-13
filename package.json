@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts",
     "prisma-merge": "prisma-merge",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "prettier --write ."
   },
   "prisma": {
     "schema": "./src/prisma/schema.prisma"
