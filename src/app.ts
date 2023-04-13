@@ -11,7 +11,7 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
+app.get("/", morgan("common"), (req, res) => {
   res.sendFile(path.join(__dirname, "/views/index.html"));
 });
 app.use("/api", apiRouter);

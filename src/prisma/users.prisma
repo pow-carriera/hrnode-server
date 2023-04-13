@@ -24,7 +24,7 @@ model Profile {
   employmentType employmentType
   department     department
   hireDate       DateTime
-  supervisor     String
+  supervisor     String?
 
   user User @relation(fields: [userId], references: [id])
   

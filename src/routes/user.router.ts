@@ -1,15 +1,20 @@
 import express from "express";
 import { Request, Response } from "express";
 import * as userService from "../controllers/user.controller";
-import { userCreator } from "../utils/localtypes";
+import { userCreate, userSelectParam } from "../utils/localtypes";
 
 export const userRouter = express.Router();
 
 userRouter.get("/", async (req: Request, res: Response) => {
-  const sort = req.query.sort;
-  const sortBy = req.query.sortBy;
+  req.accepts("application/json");
+  const query: userSelectParam = {
+    profile: req.query.profile === "true",
+    sort: req.query.sort?.toString(),
+    sortBy: req.query.sortBy?.toString(),
+  };
   try {
-    const users = await userService.getUsers();
+    const users = await userService.getUsers(query);
+    console.log(query);
     res.status(200).send(users);
   } catch (error) {
     res.status(400).json({
@@ -20,13 +25,20 @@ userRouter.get("/", async (req: Request, res: Response) => {
 });
 
 userRouter.post("/", async (req: Request, res: Response) => {
+  req.accepts("application/json");
   try {
-    const input: userCreator = req.body;
+    const input: userCreate = req.body;
     const user = await userService.createUser(input);
-    console.log(user);
+    res.status(200).json({
+      data: {
+        id: user.id,
+      },
+      status: 200,
+      message: `OK.`,
+    });
   } catch (error) {
     res.status(400).json({
-      error: 400,
+      status: 400,
       message: `Bad request. ${error}`,
     });
   }

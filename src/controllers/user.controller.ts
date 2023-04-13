@@ -1,13 +1,28 @@
 import { db } from "../utils/database";
 
 import { User } from "@prisma/client";
-import { userCreator, userUpdater } from "../utils/localtypes";
+import { userCreate, userSelect, userSelectParam } from "../utils/localtypes";
 
-export const getUsers = async (): Promise<User[] | null> => {
-  return db.user.findMany();
+export const getUsers = async (
+  query: userSelectParam
+): Promise<User[] | null> => {
+  if (query.sortBy === undefined) {
+    query.sortBy = "lastName";
+  }
+  const sortObj = {
+    profile: {
+      [query.sortBy]: query.sort,
+    },
+  };
+  return db.user.findMany({
+    orderBy: sortObj,
+    include: {
+      profile: query.profile,
+    },
+  });
 };
 
-export const createUser = async (input: userCreator): Promise<User> => {
+export const createUser = async (input: userCreate): Promise<User> => {
   return db.user.create({
     data: {
       ...input.user,
@@ -17,7 +32,7 @@ export const createUser = async (input: userCreator): Promise<User> => {
     },
   });
 };
-export const updateUser = async (input: userUpdater): Promise<User | null> => {
+export const updateUser = async (input: userSelect): Promise<User | null> => {
   return db.user.delete({
     where: {
       ...input.user,
