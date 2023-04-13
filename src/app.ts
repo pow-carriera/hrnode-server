@@ -13,12 +13,14 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", morgan("common"), (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/index.html"));
 });
+
 app.use("/api", apiRouter);
 
 apiRouter.use("/users", routes.userRouter);
+apiRouter.use("/auth", routes.authRouter);
 
 app.listen(PORT || 5000, () => {
   console.log(`${APPNAME} is running at ${HOST}:${PORT}`);

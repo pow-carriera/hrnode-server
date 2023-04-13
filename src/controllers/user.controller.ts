@@ -6,6 +6,7 @@ import {
   userSelectParam,
   UserJwt
 } from "../utils/localtypes";
+import bcrypt from "bcrypt";
 
 export const getUsers = async (
   query: userSelectParam
@@ -31,16 +32,21 @@ export const getUsers = async (
 };
 
 export const createUser = async (input: userCreate): Promise<User> => {
-  let user = db.user.create({
+  const { user } = input;
+  let hashString: string;
+  const hash = bcrypt.hashSync(user.password, 10);
+
+  let data = db.user.create({
     data: {
-      ...input.user,
+      username: user.username,
+      password: hash,
       profile: {
         create: input.profile
       }
     }
   });
 
-  return user;
+  return data;
 };
 export const updateUser = async (
   id: string,

@@ -6,7 +6,7 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY || "secret";
 
 const generateAccessToken = (id: string) => {
-  return jwt.sign(id, SECRET_KEY, { expiresIn: "1800s" });
+  return jwt.sign({ id }, SECRET_KEY, { expiresIn: "1800s" });
 };
 
 const authenticateToken = async (
