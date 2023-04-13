@@ -23,11 +23,11 @@ userRouter.post("/", async (req: Request, res: Response) => {
   try {
     const input: userCreator = req.body;
     const user = await userService.createUser(input);
-    console.log(user)
+    console.log(user);
   } catch (error) {
     res.status(400).json({
       error: 400,
-      message: `Bad request. ${error}`
-    })
+      message: `Bad request. ${error}`,
+    });
   }
 });

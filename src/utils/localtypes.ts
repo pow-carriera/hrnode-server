@@ -1,10 +1,10 @@
-import { User, Profile } from '@prisma/client'
+import { User, Profile } from "@prisma/client";
 
 export type userCreator = {
-  user: Omit<User, "id">,
-  profile: Omit<Profile, "userId">
+  user: Omit<User, "id">;
+  profile: Omit<Profile, "userId">;
 };
 
 export type userUpdater = {
-  user: Omit<User, "username" | "password">
-}
+  user: Omit<User, "username" | "password">;
+};
