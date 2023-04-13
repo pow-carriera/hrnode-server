@@ -20,7 +20,7 @@ const authenticateToken = async (
   if (token == null)
     return res.status(401).json({
       status: 401,
-      message: "Not authorized.",
+      message: "Not authorized."
     });
 
   jwt.verify(token, process.env.SECRET_KEY as string, (err: any, user: any) => {

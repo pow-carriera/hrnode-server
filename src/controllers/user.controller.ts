@@ -4,7 +4,7 @@ import {
   userCreate,
   userSelect,
   userSelectParam,
-  UserJwt,
+  UserJwt
 } from "../utils/localtypes";
 
 export const getUsers = async (
@@ -15,17 +15,17 @@ export const getUsers = async (
   }
   const sortObj = {
     profile: {
-      [query.sortBy]: query.sort,
-    },
+      [query.sortBy]: query.sort
+    }
   };
 
   const users = db.user.findMany({
     select: {
       id: true,
       username: true,
-      profile: query.profile,
+      profile: query.profile
     },
-    orderBy: sortObj,
+    orderBy: sortObj
   });
   return users;
 };
@@ -35,9 +35,9 @@ export const createUser = async (input: userCreate): Promise<User> => {
     data: {
       ...input.user,
       profile: {
-        create: input.profile,
-      },
-    },
+        create: input.profile
+      }
+    }
   });
 
   return user;
@@ -48,21 +48,21 @@ export const updateUser = async (
 ): Promise<User | null> => {
   return db.user.update({
     where: {
-      id,
+      id
     },
     data: {
       ...data.user,
       profile: {
-        update: data.profile,
-      },
-    },
+        update: data.profile
+      }
+    }
   });
 };
 
 export const deleteUser = async (id: string): Promise<User | null> => {
   return db.user.delete({
     where: {
-      id,
-    },
+      id
+    }
   });
 };

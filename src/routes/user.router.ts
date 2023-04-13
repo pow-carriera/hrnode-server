@@ -13,7 +13,7 @@ userRouter.get("/", async (req: Request, res: Response) => {
   const query: userSelectParam = {
     profile: req.query.profile === "true",
     sort: req.query.sort?.toString(),
-    sortBy: req.query.sortBy?.toString(),
+    sortBy: req.query.sortBy?.toString()
   };
 
   try {
@@ -22,7 +22,7 @@ userRouter.get("/", async (req: Request, res: Response) => {
   } catch (error) {
     res.status(400).json({
       error: 400,
-      message: `Bad request. ${error}`,
+      message: `Bad request. ${error}`
     });
   }
 });
@@ -41,15 +41,15 @@ userRouter.post(
       res.status(200).json({
         data: {
           id: user.id,
-          jwt: token,
+          jwt: token
         },
         status: 201,
-        message: `Created. User successfully created.`,
+        message: `Created. User successfully created.`
       });
     } catch (error) {
       res.status(400).json({
         status: 400,
-        message: `Bad request. ${error}`,
+        message: `Bad request. ${error}`
       });
     }
   }
@@ -61,15 +61,15 @@ userRouter.put("/:id", async (req: Request, res: Response) => {
     const user = await userService.updateUser(req.params.id, req.body);
     res.status(200).json({
       data: {
-        id: user!.id,
+        id: user!.id
       },
       status: 200,
-      message: "OK. User successfully updated.",
+      message: "OK. User successfully updated."
     });
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: `Bad request. ${error}`,
+      message: `Bad request. ${error}`
     });
   }
 });
@@ -81,15 +81,15 @@ userRouter.delete("/:id", async (req: Request, res: Response) => {
 
     res.status(200).json({
       data: {
-        id: user!.id,
+        id: user!.id
       },
       status: 200,
-      message: "OK. User successfully deleted.",
+      message: "OK. User successfully deleted."
     });
   } catch (error) {
     res.status(400).json({
       status: 400,
-      message: `Bad request. ${error}`,
+      message: `Bad request. ${error}`
     });
   }
 });
