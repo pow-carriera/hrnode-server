@@ -12,5 +12,5 @@ npx prisma migrate dev --name "initialize"
 
 ## Run server dev mode
 
-> npm run dev
+npm run dev
 
