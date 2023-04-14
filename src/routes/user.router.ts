@@ -4,17 +4,16 @@ import { Request, Response } from "express";
 import * as userService from "../controllers/user.controller";
 import { auth } from "../middlewares/middlewares";
 import type {
-  userCreate,
-  usersSelectParam,
-  userUniqueSelectParam
+  UserCreate,
+  UsersSelectParam,
+  UserUniqueSelectParam
 } from "../utils/localtypes";
-
 // API Level Routes
 export const userRouter = express.Router();
 
 userRouter.get("/", async (req: Request, res: Response) => {
   req.accepts("application/json");
-  const query: usersSelectParam = {
+  const query: UsersSelectParam = {
     profile: req.query.profile === "true",
     sort: req.query.sort?.toString(),
     sortBy: req.query.sortBy?.toString()
@@ -32,7 +31,7 @@ userRouter.get("/", async (req: Request, res: Response) => {
 });
 
 userRouter.get("/:id", async (req: Request, res: Response) => {
-  const query: userUniqueSelectParam = {
+  const query: UserUniqueSelectParam = {
     id: req.params.id,
     profile: req.query.profile === "true",
     attendance: req.query.attendance === "true"
@@ -54,7 +53,7 @@ userRouter.post(
   async (req: Request, res: Response) => {
     req.accepts("application/json");
     try {
-      const input: userCreate = req.body;
+      const input: UserCreate = req.body;
       const user = await userService.createUser(input);
 
       const token = auth.generateAccessToken(user.id);

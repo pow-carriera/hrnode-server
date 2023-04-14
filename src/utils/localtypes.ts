@@ -4,22 +4,22 @@ export type UserJwt = {
   jwt: string;
 };
 
-export type userCreate = {
+export type UserCreate = {
   user: Omit<User, "id">;
   profile: Omit<Profile, "userId">;
 };
 
-export type userSelect = {
+export type UserSelect = {
   user: Omit<User, "username" | "password" | "role">;
 };
 
-export type usersSelectParam = {
+export type UsersSelectParam = {
   profile: boolean;
   sort: string | undefined;
   sortBy: string | undefined;
 };
 
-export type userUniqueSelectParam = {
+export type UserUniqueSelectParam = {
   id: string;
   profile: boolean;
   attendance: boolean;
