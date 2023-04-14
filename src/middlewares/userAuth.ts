@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import { NextFunction } from "express";
+
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY || "secret";
 

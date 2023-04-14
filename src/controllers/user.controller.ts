@@ -5,6 +5,7 @@ import {
   usersSelectParam,
   userUniqueSelectParam
 } from "../utils/localtypes";
+import bcrypt from "bcrypt";
 
 export const getUsers = async (
   query: usersSelectParam
@@ -47,7 +48,9 @@ export const getUniqueUser = async (query: userUniqueSelectParam) => {
 export const createUser = async (input: userCreate): Promise<User> => {
   let user = db.user.create({
     data: {
-      ...input.user,
+      username: input.user.username,
+      password: bcrypt.hashSync(input.user.password, 10),
+      role: input.user.role,
       profile: {
         create: input.profile
       }

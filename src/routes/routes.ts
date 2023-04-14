@@ -1,3 +1,3 @@
 import { userRouter } from "./user.router";
-
-export { userRouter };
+import { authRouter } from "./auth.router";
+export { userRouter, authRouter };

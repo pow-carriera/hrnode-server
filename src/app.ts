@@ -4,6 +4,7 @@ import * as routes from "./routes/routes";
 import morgan from "morgan";
 import path from "path";
 import cors from "cors";
+import { startMessage } from "./utils/init";
 
 const app = express();
 const apiRouter = express.Router();
@@ -19,7 +20,15 @@ app.get("/", morgan("common"), (req, res) => {
 app.use("/api", apiRouter);
 
 apiRouter.use("/users", routes.userRouter);
+apiRouter.use("/auth", routes.authRouter);
+
+app.use("*", (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: "The resource you're looking for could not be found."
+  });
+});
 
 app.listen(PORT || 5000, () => {
-  console.log(`${APPNAME} is running at ${HOST}:${PORT}`);
+  startMessage();
 });
