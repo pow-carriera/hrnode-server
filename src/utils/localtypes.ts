@@ -10,11 +10,17 @@ export type userCreate = {
 };
 
 export type userSelect = {
-  user: Omit<User, "username" | "password">;
+  user: Omit<User, "username" | "password" | "role">;
 };
 
-export type userSelectParam = {
+export type usersSelectParam = {
   profile: boolean;
   sort: string | undefined;
   sortBy: string | undefined;
+};
+
+export type userUniqueSelectParam = {
+  id: string;
+  profile: boolean;
+  attendance: boolean;
 };

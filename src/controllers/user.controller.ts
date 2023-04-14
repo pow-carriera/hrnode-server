@@ -2,13 +2,12 @@ import { db } from "../utils/database";
 import { User, Profile } from "@prisma/client";
 import {
   userCreate,
-  userSelect,
-  userSelectParam,
-  UserJwt
+  usersSelectParam,
+  userUniqueSelectParam
 } from "../utils/localtypes";
 
 export const getUsers = async (
-  query: userSelectParam
+  query: usersSelectParam
 ): Promise<Omit<User[] | null, "password">> => {
   if (query.sortBy === undefined) {
     query.sortBy = "lastName";
@@ -28,6 +27,21 @@ export const getUsers = async (
     orderBy: sortObj
   });
   return users;
+};
+
+export const getUniqueUser = async (query: userUniqueSelectParam) => {
+  const { id, profile, attendance } = query;
+  let user = db.user.findUnique({
+    where: {
+      id
+    },
+    select: {
+      id: true,
+      username: true,
+      profile
+    }
+  });
+  return user;
 };
 
 export const createUser = async (input: userCreate): Promise<User> => {
@@ -63,6 +77,9 @@ export const deleteUser = async (id: string): Promise<User | null> => {
   return db.user.delete({
     where: {
       id
+    },
+    include: {
+      profile: true
     }
   });
 };

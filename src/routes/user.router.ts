@@ -3,14 +3,18 @@ import { Request, Response } from "express";
 
 import * as userService from "../controllers/user.controller";
 import { auth } from "../middlewares/middlewares";
-import type { userCreate, userSelectParam } from "../utils/localtypes";
+import type {
+  userCreate,
+  usersSelectParam,
+  userUniqueSelectParam
+} from "../utils/localtypes";
 
 // API Level Routes
 export const userRouter = express.Router();
 
 userRouter.get("/", async (req: Request, res: Response) => {
   req.accepts("application/json");
-  const query: userSelectParam = {
+  const query: usersSelectParam = {
     profile: req.query.profile === "true",
     sort: req.query.sort?.toString(),
     sortBy: req.query.sortBy?.toString()
@@ -27,9 +31,26 @@ userRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
+userRouter.get("/:id", async (req: Request, res: Response) => {
+  const query: userUniqueSelectParam = {
+    id: req.params.id,
+    profile: req.query.profile === "true",
+    attendance: req.query.attendance === "true"
+  };
+  try {
+    const user = await userService.getUniqueUser(query);
+    res.status(200).json(user);
+  } catch (error) {
+    res.send(400).json({
+      error: 400,
+      message: `Bad request ${error}`
+    });
+  }
+});
+
 userRouter.post(
   "/",
-  auth.authenticateToken,
+  // auth.authenticateToken,
   async (req: Request, res: Response) => {
     req.accepts("application/json");
     try {
