@@ -1,7 +1,0 @@
-model TimeRecord {
-  id String @unique @default(uuid())
-  recordDate DateTime @default(now())
-
-  timeIn DateTime @default(now())
-  timeOut DateTime
-}

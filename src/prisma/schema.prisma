@@ -10,19 +10,15 @@ datasource db {
 }
 
 
-model TimeRecord {
-  id String @unique @default(uuid())
-  recordDate DateTime @default(now())
 
-  timeIn DateTime @default(now())
-  timeOut DateTime
-}
 
 model User {
   id       String @unique @default(uuid())
   username String @unique
   password String
-
+  role     Role
+  
+  timeRecord TimeRecord[]
   profile Profile?
 
   createdAt DateTime @default(now())
@@ -50,7 +46,12 @@ model Profile {
   supervisor     String?
 
   user User @relation(fields: [userId], references: [id])
-  
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+  INTERN
 }
 
 enum employmentType {
@@ -67,4 +68,16 @@ enum department {
   DEVOPS
   MOBILEDEV
   WEBDEV
+}
+
+model TimeRecord {
+  id String @unique @default(uuid())
+  userId String 
+
+  recordDate DateTime @default(now())
+
+  timeIn DateTime @default(now())
+  timeOut DateTime
+
+  user User @relation(fields: [userId], references: [id])
 }

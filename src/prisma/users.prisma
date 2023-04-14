@@ -3,7 +3,8 @@ model User {
   username String @unique
   password String
   role     Role
-
+  
+  timeRecord TimeRecord[]
   profile Profile?
 
   createdAt DateTime @default(now())
@@ -53,4 +54,16 @@ enum department {
   DEVOPS
   MOBILEDEV
   WEBDEV
+}
+
+model TimeRecord {
+  id String @unique @default(uuid())
+  userId String 
+
+  recordDate DateTime @default(now())
+
+  timeIn DateTime @default(now())
+  timeOut DateTime
+
+  user User @relation(fields: [userId], references: [id])
 }
