@@ -23,7 +23,11 @@ authRouter.post("/login", async (req: Request, res: Response) => {
         message: "Invalid username or password."
       });
     }
-    res.send(response).status(200);
+    res.status(200).json({
+      status: 200,
+      message: "OK. Log in success.",
+      data: response
+    });
   } catch (error) {
     res.status(400).json({
       status: 400,
