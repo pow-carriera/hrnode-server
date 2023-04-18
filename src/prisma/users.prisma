@@ -21,7 +21,7 @@ model Profile {
   suffix     String?
 
   gender    String?
-  birthDate String?
+  birthDate DateTime?
 
   contactNumber String?
   contactEmail  String?
@@ -54,16 +54,4 @@ enum department {
   DEVOPS
   MOBILEDEV
   WEBDEV
-}
-
-model TimeRecord {
-  id String @unique @default(uuid())
-  userId String 
-
-  recordDate DateTime @default(now())
-
-  timeIn DateTime @default(now())
-  timeOut DateTime
-
-  user User @relation(fields: [userId], references: [id])
 }

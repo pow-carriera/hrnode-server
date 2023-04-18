@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import { startMessage } from "./utils/init";
 import fileUpload from "express-fileupload";
+import moment from "moment";
 
 const app = express();
 const apiRouter = express.Router();
@@ -23,6 +24,7 @@ app.use("/api", apiRouter);
 
 apiRouter.use("/users", routes.userRouter);
 apiRouter.use("/auth", routes.authRouter);
+apiRouter.use("/time", routes.timeRouter);
 
 app.post("/upload", (req, res) => {
   try {
@@ -49,4 +51,5 @@ app.use("*", (req, res) => {
 
 app.listen(PORT || 5000, () => {
   startMessage();
+  console.log(moment().format());
 });

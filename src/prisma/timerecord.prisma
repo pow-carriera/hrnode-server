@@ -1,0 +1,11 @@
+model TimeRecord {
+  id String @unique @default(uuid())
+  userId String 
+
+  recordDate String?
+
+  timeIn DateTime?
+  timeOut DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+}
