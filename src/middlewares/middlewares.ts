@@ -1,3 +1,3 @@
 import * as auth from "./userAuth";
-
-export { auth };
+import { errorHandler } from "./errorHandler";
+export { auth, errorHandler };

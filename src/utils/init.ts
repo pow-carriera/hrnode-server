@@ -2,7 +2,7 @@ import dns from "dns";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const startMessage = () => {
+const startMessage = () => {
   dns.lookup(
     require("os").hostname(),
     (error: any, address: any, family: any) => {
@@ -12,3 +12,5 @@ export const startMessage = () => {
     }
   );
 };
+
+export default startMessage;

@@ -1,26 +1,39 @@
 import express from "express";
 import * as timeService from "../controllers/time.controller";
 export const timeRouter = express.Router();
-import type { TimeRecord } from "@prisma/client";
+import createHttpError from "http-errors";
 
-timeRouter.post("/in/:id", async (req, res) => {
-  const id = req.params.id;
-  const data = await timeService.timeInUser(id);
-  if (data === null) {
-    res.status(400).json({
-      status: 400,
-      message: "Bad Request. Already timed in at the current day."
-    });
-  } else {
-    res.status(200).json({
-      status: 200,
-      message: "OK."
-    });
+timeRouter.post("/in/:userId", async (req, res, next) => {
+  const userRecord = await timeService.checkRecordToday(req.params.userId);
+
+  if (userRecord != null) {
+    next(createHttpError(400, "Bad request. Employee is already timed in."));
+    return;
   }
+
+  res.status(200).json({
+    status: 200,
+    message: "OK. Record successfully created.",
+    data: await timeService.timeInUser(req.params.userId)
+  });
 });
 
-timeRouter.post("/out/:id", async (req, res) => {
-  const id = req.params.id;
-  const data = await timeService.timeOutUser(id);
-  res.status(200).json({ data });
+timeRouter.post("/out/:userId", async (req, res, next) => {
+  const userRecord = await timeService.checkRecordToday(req.params.userId);
+
+  if (userRecord?.timeOut) {
+    next(createHttpError(400, "Bad request. Employee is already timed out."));
+    return;
+  }
+
+  if (userRecord === null) {
+    next(createHttpError(400, "Bad request. No user or record found."));
+    return;
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: "OK.",
+    data: await timeService.timeOutUser(userRecord.id)
+  });
 });
