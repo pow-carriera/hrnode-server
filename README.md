@@ -1,5 +1,7 @@
 ## HRNode-server
 
+HRNode is a simple backend service for Human Resource Management Information Systems.
+
 ---
 
 Environment variables declared in this file are automatically made available to Prisma.

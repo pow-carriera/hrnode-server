@@ -13,11 +13,6 @@ export const getUsers = async (
   if (query.sortBy === undefined) {
     query.sortBy = "lastName";
   }
-  const sortObj = {
-    profile: {
-      [query.sortBy]: query.sort
-    }
-  };
 
   const users = await db.user.findMany({
     select: {
@@ -25,7 +20,11 @@ export const getUsers = async (
       username: true,
       profile: query.profile
     },
-    orderBy: sortObj
+    orderBy: {
+      profile: {
+        [query.sortBy]: query.sort
+      }
+    }
   });
   return users;
 };

@@ -24,10 +24,10 @@ const authenticateToken = async (
       message: "Not authorized."
     });
 
-  jwt.verify(token, process.env.SECRET_KEY as string, (err: any, user: any) => {
+  jwt.verify(token, SECRET_KEY as string, (err: any, user: any) => {
     console.log(err);
-
     if (err) return res.status(403);
+
     next();
   });
 };
