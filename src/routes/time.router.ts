@@ -22,7 +22,7 @@ timeRouter.post("/out/:userId", async (req, res, next) => {
   const userRecord = await timeService.checkRecordToday(req.params.userId);
 
   if (userRecord?.timeOut) {
-    next(createHttpError(400, "Bad request. Employee is already timed out."));
+    next(createHttpError(400, "Bad request. Employee already timed out."));
     return;
   }
 
