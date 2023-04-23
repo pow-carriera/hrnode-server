@@ -33,3 +33,17 @@ export const logInUser = async (
   };
   return userData;
 };
+
+export const signUpUser = async (
+  input: Pick<User, "username" | "password" | "role">
+): Promise<Omit<User, "password">> => {
+  const user = await db.user.create({
+    data: {
+      username: input.username,
+      password: bcrypt.hashSync(input.password, 10),
+      role: "PENDING"
+    }
+  });
+
+  return user;
+};
