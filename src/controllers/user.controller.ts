@@ -38,7 +38,7 @@ export const getUniqueUser = async (query: UserUniqueSelectParam) => {
     select: {
       id: true,
       username: true,
-      profile
+      profile: true
     }
   });
   return user;
