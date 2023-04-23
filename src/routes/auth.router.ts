@@ -22,16 +22,51 @@ authRouter.post("/login", async (req: Request, res: Response) => {
         status: 401,
         message: "Invalid username or password."
       });
+      return;
     }
     res.status(200).json({
       status: 200,
       message: "OK. Log in success.",
       data: response
     });
+    return;
   } catch (error) {
     res.status(400).json({
       status: 400,
       message: `Bad request. ${error}`
     });
+    return;
+  }
+});
+
+authRouter.post("/signup", async (req: Request, res: Response) => {
+  req.accepts("application/json");
+  try {
+    const user: Pick<User, "username" | "password" | "role"> = {
+      username: req.body.username,
+      password: req.body.password,
+      role: req.body.role
+    };
+    const response = await authService.signUpUser(user);
+
+    if (response == null) {
+      res.status(400).json({
+        status: 400,
+        message: `Bad request. Response is: ${response}`
+      });
+      return;
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: `Successfully signed up. Waiting for HR-Admin verification`
+    });
+    return;
+  } catch (error) {
+    res.status(400).json({
+      status: 400,
+      message: `Bad request. ${error}`
+    });
+    return;
   }
 });

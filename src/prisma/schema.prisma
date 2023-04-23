@@ -22,14 +22,39 @@ model TimeRecord {
   user User @relation(fields: [userId], references: [id])
 }
 
+model Transaction {
+  id String @unique @default(uuid())
+  userId String
+  type transactionType[]
+  description String?
+
+  startDate DateTime? 
+  endDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedat DateTime @updatedAt
+
+  user User @relation(fields: [userId])
+}
+
+enum transactionType {
+  LEAVE
+  UNDERTIME
+  OFFICIALBUSINESS
+  OVERTIME
+  SCHEDULE
+  CERTOFATTENDANCE
+}
+
 model User {
   id       String @unique @default(uuid())
   username String @unique
   password String
   role     Role
   
-  timeRecord TimeRecord[]
   profile Profile?
+  timeRecord TimeRecord[]
+  transaction Transaction[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -79,3 +104,4 @@ enum department {
   MOBILEDEV
   WEBDEV
 }
+

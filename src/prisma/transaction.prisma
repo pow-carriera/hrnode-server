@@ -1,0 +1,23 @@
+model Transaction {
+  id String @unique @default(uuid())
+  userId String
+  type transactionType[]
+  description String?
+
+  startDate DateTime? 
+  endDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedat DateTime @updatedAt
+
+  user User @relation(fields: [userId])
+}
+
+enum transactionType {
+  LEAVE
+  UNDERTIME
+  OFFICIALBUSINESS
+  OVERTIME
+  SCHEDULE
+  CERTOFATTENDANCE
+}

@@ -17,10 +17,11 @@ export type UsersSelectParam = {
   profile: boolean;
   sort: string | undefined;
   sortBy: string | undefined;
+  time: boolean;
 };
 
 export type UserUniqueSelectParam = {
   id: string;
   profile: boolean;
-  attendance: boolean;
+  time: boolean;
 };

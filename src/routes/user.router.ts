@@ -15,6 +15,7 @@ userRouter.get("/", async (req: Request, res: Response) => {
   req.accepts("application/json");
   const query: UsersSelectParam = {
     profile: req.query.profile === "true",
+    time: req.query.time === "true",
     sort: req.query.sort?.toString(),
     sortBy: req.query.sortBy?.toString()
   };
@@ -34,8 +35,9 @@ userRouter.get("/:id", async (req: Request, res: Response) => {
   const query: UserUniqueSelectParam = {
     id: req.params.id,
     profile: req.query.profile === "true",
-    attendance: req.query.attendance === "true"
+    time: req.query.time === "true"
   };
+
   try {
     const user = await userService.getUniqueUser(query);
     res.status(200).json(user);

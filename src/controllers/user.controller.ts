@@ -18,7 +18,8 @@ export const getUsers = async (
     select: {
       id: true,
       username: true,
-      profile: query.profile
+      profile: query.profile,
+      timeRecord: query.time
     },
     orderBy: {
       profile: {
@@ -30,7 +31,7 @@ export const getUsers = async (
 };
 
 export const getUniqueUser = async (query: UserUniqueSelectParam) => {
-  const { id, profile, attendance } = query;
+  const { id, profile, time } = query;
   let user = await db.user.findUnique({
     where: {
       id
@@ -38,7 +39,8 @@ export const getUniqueUser = async (query: UserUniqueSelectParam) => {
     select: {
       id: true,
       username: true,
-      profile
+      profile,
+      timeRecord: time
     }
   });
   return user;
