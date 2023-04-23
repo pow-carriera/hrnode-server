@@ -5,7 +5,7 @@ export type UserJwt = {
 };
 
 export type UserCreate = {
-  user: Omit<User, "id">;
+  user: Omit<User, "id" | "createdAt" | "updatedAt">;
   profile: Omit<Profile, "userId">;
 };
 

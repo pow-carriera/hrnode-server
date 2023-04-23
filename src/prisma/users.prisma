@@ -38,6 +38,7 @@ enum Role {
   ADMIN
   EMPLOYEE
   INTERN
+  PENDING
 }
 
 enum employmentType {

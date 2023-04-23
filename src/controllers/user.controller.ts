@@ -58,6 +58,7 @@ export const createUser = async (input: UserCreate): Promise<User> => {
 
   return user;
 };
+
 export const updateUser = async (
   id: string,
   data: UserCreate
