@@ -35,3 +35,11 @@ export const timeOutUser = async (id: string): Promise<TimeRecord> => {
     }
   });
 };
+
+export const getAttendancesfromUser = async (userId: string) => {
+  return await db.timeRecord.findMany({
+    where: {
+      userId
+    }
+  });
+};

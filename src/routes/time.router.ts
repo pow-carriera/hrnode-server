@@ -33,7 +33,14 @@ timeRouter.post("/out/:userId", async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: "OK.",
+    message: "OK. Record successfully updated.",
     data: await timeService.timeOutUser(userRecord.id)
   });
+});
+
+timeRouter.get("/", async (req, res, next) => {
+  const userId: any = req.query.ofuser;
+  const timeOfUser = await timeService.getAttendancesfromUser(userId);
+
+  res.status(200).json(timeOfUser);
 });

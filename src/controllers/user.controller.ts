@@ -7,19 +7,18 @@ import {
 } from "../utils/localtypes";
 import bcrypt from "bcrypt";
 
-export const getUsers = async (
+export const getManyUsers = async (
   query: UsersSelectParam
 ): Promise<Omit<User[] | null, "password">> => {
   if (query.sortBy === undefined) {
     query.sortBy = "lastName";
   }
 
-  const users = await db.user.findMany({
+  return await db.user.findMany({
     select: {
       id: true,
       username: true,
-      profile: query.profile,
-      timeRecord: query.time
+      profile: query.profile
     },
     orderBy: {
       profile: {
@@ -27,12 +26,12 @@ export const getUsers = async (
       }
     }
   });
-  return users;
 };
 
 export const getUniqueUser = async (query: UserUniqueSelectParam) => {
-  const { id, profile, time } = query;
-  let user = await db.user.findUnique({
+  const { id, profile, timeRecord, transaction } = query;
+
+  return await db.user.findUnique({
     where: {
       id
     },
@@ -40,13 +39,13 @@ export const getUniqueUser = async (query: UserUniqueSelectParam) => {
       id: true,
       username: true,
       profile,
-      timeRecord: time
+      timeRecord,
+      transaction
     }
   });
-  return user;
 };
 
-export const createUser = async (input: UserCreate): Promise<User> => {
+export const createOneUser = async (input: UserCreate): Promise<User> => {
   let user = await db.user.create({
     data: {
       username: input.user.username,
@@ -60,7 +59,7 @@ export const createUser = async (input: UserCreate): Promise<User> => {
 
   return user;
 };
-export const updateUser = async (
+export const updateOneUser = async (
   id: string,
   data: UserCreate
 ): Promise<User | null> => {
@@ -77,7 +76,7 @@ export const updateUser = async (
   });
 };
 
-export const deleteUser = async (id: string): Promise<User | null> => {
+export const deleteOneUser = async (id: string): Promise<User | null> => {
   return await db.user.delete({
     where: {
       id

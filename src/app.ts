@@ -26,6 +26,7 @@ app.use("/api", apiRouter);
 apiRouter.use("/users", routes.userRouter, errorHandler);
 apiRouter.use("/auth", routes.authRouter, errorHandler);
 apiRouter.use("/time", routes.timeRouter, errorHandler);
+apiRouter.use("/transactions", routes.transactionRouter, errorHandler);
 
 app.use("*", (req, res) => {
   res.status(404).json({

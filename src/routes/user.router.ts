@@ -15,13 +15,12 @@ userRouter.get("/", async (req: Request, res: Response) => {
   req.accepts("application/json");
   const query: UsersSelectParam = {
     profile: req.query.profile === "true",
-    time: req.query.time === "true",
     sort: req.query.sort?.toString(),
     sortBy: req.query.sortBy?.toString()
   };
 
   try {
-    const users = await userService.getUsers(query);
+    const users = await userService.getManyUsers(query);
     res.status(200).send(users);
   } catch (error) {
     res.status(400).json({
@@ -35,7 +34,8 @@ userRouter.get("/:id", async (req: Request, res: Response) => {
   const query: UserUniqueSelectParam = {
     id: req.params.id,
     profile: req.query.profile === "true",
-    time: req.query.time === "true"
+    timeRecord: req.query.time === "true",
+    transaction: req.query.transaction === "true"
   };
 
   try {
@@ -56,7 +56,7 @@ userRouter.post(
     req.accepts("application/json");
     try {
       const input: UserCreate = req.body;
-      const user = await userService.createUser(input);
+      const user = await userService.createOneUser(input);
 
       const token = auth.generateAccessToken(user.id);
 
@@ -80,7 +80,7 @@ userRouter.post(
 userRouter.put("/:id", async (req: Request, res: Response) => {
   req.accepts("application/json");
   try {
-    const user = await userService.updateUser(req.params.id, req.body);
+    const user = await userService.updateOneUser(req.params.id, req.body);
     res.status(200).json({
       data: {
         id: user!.id
@@ -99,7 +99,7 @@ userRouter.put("/:id", async (req: Request, res: Response) => {
 userRouter.delete("/:id", async (req: Request, res: Response) => {
   req.accepts("application/json");
   try {
-    const user = await userService.deleteUser(req.params.id);
+    const user = await userService.deleteOneUser(req.params.id);
 
     res.status(200).json({
       data: {
