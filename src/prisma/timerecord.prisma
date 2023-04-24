@@ -9,3 +9,10 @@ model TimeRecord {
 
   user User @relation(fields: [userId], references: [id])
 }
+
+// ALIAS MODELS
+
+model User {
+  id String @unique @default(uuid())
+  timeRecord TimeRecord[]
+}

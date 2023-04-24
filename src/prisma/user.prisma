@@ -39,6 +39,7 @@ enum Role {
   ADMIN
   EMPLOYEE
   INTERN
+  PENDING
 }
 
 enum employmentType {
@@ -57,3 +58,19 @@ enum department {
   WEBDEV
 }
 
+
+// ALIAS MODELS
+
+model Transaction {
+  id String @unique @default(uuid())
+  userId String
+  
+  user User @relation(fields: [userId], references: [id])
+}
+
+model TimeRecord {
+  id String @unique @default(uuid())
+  userId String 
+
+  user User @relation(fields: [userId], references: [id])
+}

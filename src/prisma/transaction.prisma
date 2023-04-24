@@ -1,7 +1,7 @@
 model Transaction {
   id String @unique @default(uuid())
   userId String
-  type transactionType[]
+  type transactionType
   description String?
 
   startDate DateTime? 
@@ -10,7 +10,12 @@ model Transaction {
   createdAt DateTime @default(now())
   updatedat DateTime @updatedAt
 
-  user User @relation(fields: [userId])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id String @unique @default(uuid())
+  transaction Transaction[]
 }
 
 enum transactionType {
