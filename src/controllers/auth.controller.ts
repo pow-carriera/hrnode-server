@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 export const logInUser = async (
   data: Pick<User, "username" | "password">
-): Promise<(Pick<User, "id" | "username"> & UserJwt) | undefined> => {
+): Promise<(Pick<User, "id" | "role"> & UserJwt) | undefined> => {
   const { username, password } = data;
   const user = await db.user.findUniqueOrThrow({
     where: {
@@ -28,7 +28,7 @@ export const logInUser = async (
 
   const userData = {
     id: user.id,
-    username: user.username,
+    role: user.role,
     jwt: auth.generateAccessToken(user.id)
   };
   return userData;

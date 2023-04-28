@@ -18,7 +18,8 @@ export const getManyUsers = async (
     select: {
       id: true,
       username: true,
-      profile: query.profile
+      profile: query.profile,
+      role: true
     },
     orderBy: {
       profile: {
@@ -38,6 +39,7 @@ export const getUniqueUser = async (query: UserUniqueSelectParam) => {
     select: {
       id: true,
       username: true,
+      role: true,
       profile,
       timeRecord,
       transaction

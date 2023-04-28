@@ -38,9 +38,14 @@ timeRouter.post("/out/:userId", async (req, res, next) => {
   });
 });
 
-timeRouter.get("/", async (req, res, next) => {
-  const userId: any = req.query.ofuser;
+timeRouter.get("/:id", async (req, res, next) => {
+  const userId: any = req.params.id;
   const timeOfUser = await timeService.getAttendancesfromUser(userId);
 
   res.status(200).json(timeOfUser);
+});
+
+timeRouter.get("/", async (req, res, next) => {
+  const data = await timeService.getAttendances();
+  res.status(200).json(data);
 });

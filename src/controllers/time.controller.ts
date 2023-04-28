@@ -40,6 +40,34 @@ export const getAttendancesfromUser = async (userId: string) => {
   return await db.timeRecord.findMany({
     where: {
       userId
+    },
+    orderBy: {
+      recordDate: "desc"
+    }
+  });
+};
+
+export const getAttendances = async () => {
+  return await db.timeRecord.findMany({
+    orderBy: {
+      timeIn: "desc"
+    },
+    include: {
+      user: {
+        select: {
+          profile: {
+            select: {
+              lastName: true,
+              firstName: true,
+              middleName: true,
+              contactNumber: true,
+              employmentType: true,
+              department: true,
+              supervisor: true
+            }
+          }
+        }
+      }
     }
   });
 };

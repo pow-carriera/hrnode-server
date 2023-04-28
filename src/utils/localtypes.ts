@@ -11,6 +11,7 @@ export type UserCreate = {
 
 export type UserSelect = {
   user: Omit<User, "username" | "password" | "role">;
+  attendance: object | null;
 };
 
 export type UsersSelectParam = {
@@ -35,3 +36,7 @@ export type CreateTransaction = Omit<
   Transaction,
   "createdAt" | "updatedAt" | "id"
 >;
+
+export type Attendance = {
+  attendance: object | null;
+};
