@@ -1,5 +1,5 @@
 import { db } from "../utils/database";
-import type { Transaction } from "@prisma/client";
+import type { Transaction, transactionType } from "@prisma/client";
 import type {
   selectUserTransaction,
   CreateTransaction
@@ -17,8 +17,24 @@ export const getManyUserTransactions = async (
   });
 };
 
-export const getAllUserTransactions = async (): Promise<Transaction[]> => {
-  return await db.transaction.findMany();
+export const getAllUserTransactions = async (
+  query: any
+): Promise<Transaction[]> => {
+  return await db.transaction.findMany({
+    orderBy: {
+      createdAt: "desc"
+    },
+    where: {
+      transactionType: query.type
+    },
+    include: {
+      user: {
+        include: {
+          profile: query.profile
+        }
+      }
+    }
+  });
 };
 
 export const createOneUserTransaction = async (data: CreateTransaction) => {
