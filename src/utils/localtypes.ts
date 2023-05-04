@@ -30,10 +30,14 @@ export type UserUniqueSelectParam = {
 export type selectUserTransaction = {
   userId: string;
   transactionType: any;
+  profile: boolean;
 };
 
 export type CreateTransaction = Omit<
-  Transaction,
+  Pick<
+    Transaction,
+    "transactionType" | "userId" | "startDate" | "endDate" | "description"
+  >,
   "createdAt" | "updatedAt" | "id"
 >;
 

@@ -49,9 +49,18 @@ export const getAttendancesfromUser = async (userId: string) => {
 
 export const getAttendances = async () => {
   return await db.timeRecord.findMany({
-    orderBy: {
-      timeIn: "desc"
-    },
+    orderBy: [
+      {
+        recordDate: "desc"
+      },
+      {
+        user: {
+          profile: {
+            lastName: "asc"
+          }
+        }
+      }
+    ],
     include: {
       user: {
         select: {

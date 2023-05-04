@@ -46,6 +46,7 @@ model Transaction {
   user            User            @relation(name: "TransactionToUser", fields: [userId], references: [id])
   transactionType transactionType
   description     String?
+  status          status          @default(Pending)
   startDate       DateTime?
   endDate         DateTime?
   createdAt       DateTime        @default(now())
@@ -82,6 +83,14 @@ enum department {
   DEVOPS
   MOBILEDEV
   WEBDEV
+  HR
+}
+
+enum status {
+  Pending
+  Cancelled
+  Declined
+  Approved
 }
 
 enum transactionType {

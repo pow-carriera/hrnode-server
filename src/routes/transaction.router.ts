@@ -13,13 +13,12 @@ transactionRouter.get(
 
     const query: selectUserTransaction = {
       userId: req.params.id,
-      transactionType: req.query.type
+      transactionType: req.query.type as transactionType,
+      profile: req.query.profile === "true"
     };
 
     try {
-      const transactions = await transactionService.getManyUserTransactions(
-        query
-      );
+      const transactions = await transactionService.getUserTransactions(query);
 
       res.status(200).json(transactions);
     } catch (error) {
@@ -66,3 +65,27 @@ transactionRouter.post(
     }
   }
 );
+
+transactionRouter.put("/approve/:id", async (req, res, next) => {
+  try {
+    req.accepts("application/json");
+    const transaction = await transactionService.approveUserTransaction(
+      req.params.id
+    );
+    res.status(200).json(transaction);
+  } catch (error) {
+    next(createHttpError(400, `Bad Request. ${error}`));
+  }
+});
+
+transactionRouter.put("/decline/:id", async (req, res, next) => {
+  try {
+    req.accepts("application/json");
+    const transaction = await transactionService.declineUserTransaction(
+      req.params.id
+    );
+    res.status(200).json(transaction);
+  } catch (error) {
+    next(createHttpError(400, `Bad Request. ${error}`));
+  }
+});

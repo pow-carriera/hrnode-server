@@ -59,6 +59,7 @@ enum department {
   DEVOPS
   MOBILEDEV
   WEBDEV
+  HR
 }
 
 
