@@ -43,7 +43,7 @@ model Profile {
 model Transaction {
   id              String          @unique @default(uuid())
   userId          String
-  user            User            @relation(name: "TransactionToUser", fields: [userId], references: [id])
+  user            User            @relation(name: "TransactionToUser", fields: [userId], references: [id], onDelete: Cascade)
   transactionType transactionType
   description     String?
   status          status          @default(Pending)
@@ -54,12 +54,13 @@ model Transaction {
 }
 
 model TimeRecord {
-  id         String    @unique @default(uuid())
-  userId     String
-  user       User      @relation(name: "TimeRecordToUser", fields: [userId], references: [id])
-  recordDate String?
-  timeIn     DateTime?
-  timeOut    DateTime?
+  id          String    @unique @default(uuid())
+  userId      String
+  user        User      @relation(name: "TimeRecordToUser", fields: [userId], references: [id], onDelete: Cascade)
+  recordDate  String?
+  timeIn      DateTime?
+  timeOut     DateTime?
+  hoursWorked Int?
 }
 
 enum Role {

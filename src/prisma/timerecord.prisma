@@ -6,8 +6,9 @@ model TimeRecord {
 
   timeIn DateTime?
   timeOut DateTime?
+  hoursWorked Int?
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // ALIAS MODELS
