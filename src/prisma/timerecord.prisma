@@ -3,6 +3,7 @@ model TimeRecord {
   userId String 
 
   recordDate String?
+  remarks Remark
 
   timeIn DateTime?
   timeOut DateTime?
@@ -16,4 +17,12 @@ model TimeRecord {
 model User {
   id String @unique @default(uuid())
   timeRecord TimeRecord[]
+}
+
+enum Remark {
+  Late
+  Early
+  OnTime
+  Absent
+  Leave
 }
