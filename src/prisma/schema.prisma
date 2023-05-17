@@ -58,6 +58,7 @@ model TimeRecord {
   userId      String
   user        User      @relation(name: "TimeRecordToUser", fields: [userId], references: [id], onDelete: Cascade)
   recordDate  String?
+  remark      Remark    @default(OnTime)
   timeIn      DateTime?
   timeOut     DateTime?
   hoursWorked Int?
@@ -85,6 +86,14 @@ enum department {
   MOBILEDEV
   WEBDEV
   HR
+}
+
+enum Remark {
+  Late
+  Early
+  OnTime
+  Absent
+  Leave
 }
 
 enum status {

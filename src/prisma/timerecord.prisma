@@ -3,7 +3,7 @@ model TimeRecord {
   userId String 
 
   recordDate String?
-  remarks Remark
+  remark Remark @default(OnTime)
 
   timeIn DateTime?
   timeOut DateTime?
