@@ -1,0 +1,16 @@
+model CalendarEvent {
+  id     String @unique @default(uuid())
+  userId String?
+
+  title  String
+  start  String
+  end    String?
+  allDay Boolean
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id String @unique @default(uuid())
+  calendarEvent CalendarEvent[]
+}

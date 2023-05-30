@@ -9,15 +9,16 @@ generator client {
 }
 
 model User {
-  id          String        @unique @default(uuid())
-  username    String        @unique
-  password    String
-  role        Role
-  profile     Profile?      @relation(name: "ProfileToUser")
-  timeRecord  TimeRecord[]  @relation(name: "TimeRecordToUser")
-  transaction Transaction[] @relation(name: "TransactionToUser")
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime?     @updatedAt
+  id            String          @unique @default(uuid())
+  username      String          @unique
+  password      String
+  role          Role
+  profile       Profile?        @relation(name: "ProfileToUser")
+  timeRecord    TimeRecord[]    @relation(name: "TimeRecordToUser")
+  transaction   Transaction[]   @relation(name: "TransactionToUser")
+  calendarEvent CalendarEvent[] @relation(name: "CalendarEventToUser")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
 }
 
 model Profile {
@@ -62,6 +63,16 @@ model TimeRecord {
   timeIn      DateTime?
   timeOut     DateTime?
   hoursWorked Int?
+}
+
+model CalendarEvent {
+  id     String  @unique @default(uuid())
+  userId String?
+  user   User?   @relation(name: "CalendarEventToUser", fields: [userId], references: [id], onDelete: Cascade)
+  title  String
+  start  String
+  end    String?
+  allDay Boolean
 }
 
 enum Role {

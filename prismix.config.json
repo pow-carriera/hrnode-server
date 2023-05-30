@@ -5,7 +5,8 @@
         "./src/prisma/base.prisma",
         "./src/prisma/user.prisma",
         "./src/prisma/timerecord.prisma",
-        "./src/prisma/transaction.prisma"
+        "./src/prisma/transaction.prisma",
+        "./src/prisma/calendarevent.prisma"
       ],
       "output": "./src/prisma/schema.prisma"
     }

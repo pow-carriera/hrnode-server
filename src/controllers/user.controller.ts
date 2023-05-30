@@ -71,7 +71,6 @@ export const updateOneUser = async (
     },
     data: {
       ...data.user,
-      password: bcrypt.hashSync(data.user.password, 10),
       profile: {
         update: data.profile
       }

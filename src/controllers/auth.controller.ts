@@ -44,6 +44,5 @@ export const signUpUser = async (
       role: "PENDING"
     }
   });
-
   return user;
 };

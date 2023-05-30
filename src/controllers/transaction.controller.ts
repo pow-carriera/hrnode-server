@@ -4,6 +4,7 @@ import type {
   selectUserTransaction,
   CreateTransaction
 } from "../utils/localtypes";
+import moment from "moment";
 
 export const getUserTransactions = async (
   query: selectUserTransaction
@@ -48,6 +49,23 @@ export const getAllUserTransactions = async (query: any): Promise<any[]> => {
 };
 
 export const createOneUserTransaction = async (data: CreateTransaction) => {
+  const user = await db.user.findFirst({
+    where: {
+      id: data.userId
+    },
+    include: {
+      profile: true
+    }
+  });
+  await db.calendarEvent.create({
+    data: {
+      userId: data.userId,
+      title: data.transactionType + ", " + user?.profile?.firstName,
+      start: moment(data.startDate).format("YYYY-MM-DD"),
+      end: moment(data.endDate).format("YYYY-MM-DD"),
+      allDay: false
+    }
+  });
   return await db.transaction.create({
     data
   });

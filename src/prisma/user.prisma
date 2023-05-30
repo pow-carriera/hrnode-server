@@ -7,6 +7,7 @@ model User {
   profile Profile?
   timeRecord TimeRecord[]
   transaction Transaction[]
+  calendarEvent CalendarEvent[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
@@ -73,6 +74,13 @@ model Transaction {
 }
 
 model TimeRecord {
+  id String @unique @default(uuid())
+  userId String 
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model CalendarEvent {
   id String @unique @default(uuid())
   userId String 
 
