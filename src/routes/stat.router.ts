@@ -12,9 +12,10 @@ statRouter.get("/users", async (req, res, next) => {
     present: await statService.readPresentEmployees(),
     leave: await statService.readOnLeaveEmployees(),
     total: await statService.readTotalEmployees(),
+    late: await statService.readLateEmployees(),
     absent: 0
   };
-  data.absent = data.total - data.present;
+  data.absent = data.total - data.present - data.late;
 
   res.status(200).json({ data });
 });

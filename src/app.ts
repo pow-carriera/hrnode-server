@@ -30,6 +30,14 @@ apiRouter.use("/transactions", routes.transactionRouter, errorHandler);
 apiRouter.use("/stats", routes.statRouter, errorHandler);
 apiRouter.use("/events", routes.calendarEventRouter, errorHandler);
 
+app.get("/ping", (req, res) => {
+  res.status(200).json({
+    status: 200,
+    message: "pong!"
+  });
+});
+
+// [Tech-debt] Catch-all for nonexistent routes. We can improve this later on.
 app.use("*", (req, res) => {
   res.status(404).json({
     status: 404,

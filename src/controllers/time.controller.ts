@@ -1,6 +1,6 @@
 import { db } from "../utils/database";
-import type { TimeRecord } from "@prisma/client";
-import moment from "moment";
+import type { Remark, TimeRecord } from "@prisma/client";
+import moment, { Moment } from "moment";
 
 export const checkRecordToday = async (
   userId: string
@@ -16,11 +16,21 @@ export const checkRecordToday = async (
 export const timeInUser = async (
   userId: string
 ): Promise<TimeRecord | null> => {
+  let remark: Remark = "OnTime";
+
+  if (
+    moment().isAfter(
+      moment().set({ hour: 8, minute: 0, second: 0, millisecond: 0 })
+    )
+  ) {
+    remark = "Late";
+  }
   return await db.timeRecord.create({
     data: {
       userId,
       recordDate: moment().format("L"),
-      timeIn: moment().toDate()
+      timeIn: moment().toDate(),
+      remark: remark
     }
   });
 };

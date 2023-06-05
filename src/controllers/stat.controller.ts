@@ -3,7 +3,7 @@ import { db } from "../utils/database";
 import moment from "moment";
 
 export const readTimeRecordStats = async (date = moment().format("L")) => {
-  return db.timeRecord.count({
+  return await db.timeRecord.count({
     where: {
       recordDate: date
     },
@@ -15,7 +15,7 @@ export const readTimeRecordStats = async (date = moment().format("L")) => {
 };
 
 export const readPresentEmployees = async (date = moment().format("L")) => {
-  return db.user.count({
+  return await db.user.count({
     where: {
       OR: [
         {
@@ -39,8 +39,21 @@ export const readPresentEmployees = async (date = moment().format("L")) => {
   });
 };
 
+export const readLateEmployees = async (date = moment().format("L")) => {
+  return await db.user.count({
+    where: {
+      timeRecord: {
+        some: {
+          recordDate: date,
+          remark: "Late"
+        }
+      }
+    }
+  });
+};
+
 export const readOnLeaveEmployees = async (date = moment().format("L")) => {
-  return db.user.count({
+  return await db.user.count({
     where: {
       timeRecord: {
         some: {

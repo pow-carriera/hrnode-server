@@ -3,6 +3,7 @@ model CalendarEvent {
   userId String?
 
   title  String
+  description String?
   start  String
   end    String?
   allDay Boolean

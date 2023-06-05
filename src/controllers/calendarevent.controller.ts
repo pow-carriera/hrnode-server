@@ -4,6 +4,7 @@ import { db } from "../utils/database";
 type CalendarEvent = {
   userId: string;
   title: string;
+  description: string | undefined;
   start: string;
   end: string | undefined;
   allDay: boolean;

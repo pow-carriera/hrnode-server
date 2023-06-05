@@ -66,13 +66,14 @@ model TimeRecord {
 }
 
 model CalendarEvent {
-  id     String  @unique @default(uuid())
-  userId String?
-  user   User?   @relation(name: "CalendarEventToUser", fields: [userId], references: [id], onDelete: Cascade)
-  title  String
-  start  String
-  end    String?
-  allDay Boolean
+  id          String  @unique @default(uuid())
+  userId      String?
+  user        User?   @relation(name: "CalendarEventToUser", fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  start       String
+  end         String?
+  allDay      Boolean
 }
 
 enum Role {
