@@ -13,6 +13,7 @@ statRouter.get("/users", async (req, res, next) => {
     leave: await statService.readOnLeaveEmployees(),
     total: await statService.readTotalEmployees(),
     late: await statService.readLateEmployees(),
+    norecords: await statService.getAbsences(),
     absent: 0
   };
   data.absent = data.total - data.present - data.late;

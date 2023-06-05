@@ -8,6 +8,9 @@ import morgan from "morgan";
 import path from "path";
 import cors from "cors";
 
+import { createAbsences } from "./scheduledJobs/createAbsences";
+createAbsences();
+
 const app = express();
 
 app.use(cors());

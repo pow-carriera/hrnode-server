@@ -68,3 +68,22 @@ export const readOnLeaveEmployees = async (date = moment().format("L")) => {
 export const readTotalEmployees = async () => {
   return db.user.count();
 };
+
+export const getAbsences = async () => {
+  return await db.user.findMany({
+    select: {
+      id: true
+    },
+    where: {
+      timeRecord: {
+        none: {
+          recordDate: moment().format("L")
+        }
+      }
+    }
+  });
+};
+
+export const createAbsenceRecords = async () => {
+  return await db.timeRecord.createMany();
+};

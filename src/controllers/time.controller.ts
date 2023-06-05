@@ -36,12 +36,25 @@ export const timeInUser = async (
 };
 
 export const timeOutUser = async (id: string): Promise<TimeRecord> => {
+  const userData = await db.timeRecord.findUnique({
+    where: {
+      id
+    },
+    select: {
+      timeIn: true,
+      timeOut: true
+    }
+  });
   return await db.timeRecord.update({
     where: {
       id
     },
     data: {
-      timeOut: moment().toDate()
+      timeOut: moment().toDate(),
+      // I'm so sorry. - Paulo Pertierra
+      hoursWorked: Math.floor(
+        moment.duration(moment().diff(moment(userData?.timeIn))).asHours()
+      )
     }
   });
 };
@@ -88,5 +101,31 @@ export const getAttendances = async () => {
         }
       }
     }
+  });
+};
+
+export const createAbsences = async () => {
+  const absencees = await db.user.findMany({
+    select: {
+      id: true
+    },
+    where: {
+      timeRecord: {
+        none: {
+          recordDate: moment().format("L")
+        }
+      }
+    }
+  });
+  return await db.timeRecord.createMany({
+    data: absencees.map((id) => {
+      return {
+        userId: id.id,
+        recordDate: moment().format("L"),
+        timeIn: null,
+        timeOut: null,
+        remark: "Absent"
+      };
+    })
   });
 };

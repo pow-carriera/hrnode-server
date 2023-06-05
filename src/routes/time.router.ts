@@ -6,8 +6,8 @@ import createHttpError from "http-errors";
 timeRouter.post("/in/:userId", async (req, res, next) => {
   const userRecord = await timeService.checkRecordToday(req.params.userId);
 
-  if (userRecord != null) {
-    next(createHttpError(400, "Bad request. Employee is already timed in."));
+  if (userRecord?.timeIn != null || userRecord?.remark != null) {
+    next(createHttpError(401, "Unauthorized. Employee already recorded."));
     return;
   }
 
@@ -21,9 +21,12 @@ timeRouter.post("/in/:userId", async (req, res, next) => {
 timeRouter.post("/out/:userId", async (req, res, next) => {
   const userRecord = await timeService.checkRecordToday(req.params.userId);
 
-  if (userRecord?.timeOut) {
-    next(createHttpError(400, "Bad request. Employee already timed out."));
+  if (userRecord?.timeOut != null) {
+    next(createHttpError(401, "Unauthorized. Employee already timed out."));
     return;
+  }
+  if (userRecord?.remark === "Absent") {
+    next(createHttpError(401, "Unauthorized. Employee absence is recorded."));
   }
 
   if (userRecord === null) {

@@ -577,6 +577,11 @@
   "resolved" "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
   "version" "0.7.31"
 
+"@types/node-cron@^3.0.7":
+  "integrity" "sha512-9PuLtBboc/+JJ7FshmJWv769gDonTpItN0Ol5TMwclpSQNjVyB2SRxSKBcTtbSysSL5R7Oea06kTTFNciCoYwA=="
+  "resolved" "https://registry.npmjs.org/@types/node-cron/-/node-cron-3.0.7.tgz"
+  "version" "3.0.7"
+
 "@types/node@*", "@types/node@^18.15.11":
   "integrity" "sha512-BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.16.0.tgz"
@@ -2547,6 +2552,13 @@
   "integrity" "sha512-qN8v/s2PAJwGUtr1/hYTpNKlD6Y9rc4p8KSmJXyGdYGZsDGKXrGThikLFP9OCHFeLeEpQzPwiAtdIvBLqm//Hw=="
   "resolved" "https://registry.npmjs.org/node-cleanup/-/node-cleanup-2.1.2.tgz"
   "version" "2.1.2"
+
+"node-cron@^3.0.2":
+  "integrity" "sha512-iP8l0yGlNpE0e6q1o185yOApANRe47UPbLf4YxfbiNHt/RU5eBcGB/e0oudruheSf+LQeDMezqC5BVAb5wwRcQ=="
+  "resolved" "https://registry.npmjs.org/node-cron/-/node-cron-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "uuid" "8.3.2"
 
 "node-fetch@^2.6.7":
   "integrity" "sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg=="
