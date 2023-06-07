@@ -1,11 +1,13 @@
 import cronJob from "node-cron";
 import * as timeService from "../controllers/time.controller";
 
+const EVERY_DAY_5PM = "0 17 * * *";
+
 export const createAbsences = () => {
   cronJob
-    .schedule("0 17 * * *", () => {
+    .schedule(EVERY_DAY_5PM, () => {
       timeService.createAbsences();
-      console.log("OH IT HAPENEEEEED");
+      console.log("Absences have been mapped to the database.");
     })
     .start();
 };
